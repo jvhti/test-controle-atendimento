@@ -11,4 +11,14 @@ class Employee extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public function shifts(){
+        return $this->hasMany('App\Models\Shift');
+    }
+
+    public function getWorksOnDaysOfWeekAttribute(){
+        return $this->shifts->map(function ($item) {
+            return $item->day_of_week;
+        })->toArray();
+    }
 }

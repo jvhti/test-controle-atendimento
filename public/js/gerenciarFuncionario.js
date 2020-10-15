@@ -16854,6 +16854,29 @@ function showEmployee(id) {
     $("#showEmployeeModal").find('.employee-name').html(res.name);
     $("#showEmployeeModal").find('.employee-number').html(res.id);
     $("#showEmployeeId").val(res.id);
+    var daysOfWeek = [];
+
+    for (var i = 0; i < res.shifts.length; ++i) {
+      var shift = res.shifts[i];
+      daysOfWeek[shift.day_of_week] = {
+        start: shift.start_time,
+        end: shift.end_time
+      };
+    }
+
+    var parseMinutesToString = function parseMinutesToString(minutes) {
+      var hours = Math.floor(minutes / 60);
+      return hours.toString().padStart(2, '0') + ':' + minutes % 60;
+    };
+
+    $("#showEmployeeModal-startTime td:not(:first-child)").each(function (i, el) {
+      if (!daysOfWeek[i]) return $(el).text('-');
+      $(el).text(parseMinutesToString(daysOfWeek[i].start));
+    });
+    $("#showEmployeeModal-endTime td:not(:first-child)").each(function (i, el) {
+      if (!daysOfWeek[i]) return $(el).text('-');
+      $(el).text(parseMinutesToString(daysOfWeek[i].end));
+    });
     $("#showEmployeeModal").modal();
   });
 }

@@ -19,14 +19,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/gerenciarFuncionario', function () {
-    $employees = \App\Models\Employee::all();
-
-    if(request()->ajax())
-        return view('gerenciarFuncionario')->with(['employees' => $employees])->renderSections()['content'];
-
-    return view('gerenciarFuncionario')->with(['employees' => $employees]);
-})->name('gerenciarFuncionario');
+Route::get('/gerenciarFuncionario', [\App\Http\Controllers\EmployeeController::class, 'index'])->name('gerenciarFuncionario');
 
 Route::get('/simular', function () {
     if(request()->ajax())

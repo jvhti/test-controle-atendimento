@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Shift;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -14,7 +15,12 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = \App\Models\Employee::with('shifts')->get();
+
+        if(request()->ajax())
+            return view('gerenciarFuncionario')->with(['employees' => $employees])->renderSections()['content'];
+
+        return view('gerenciarFuncionario')->with(['employees' => $employees]);
     }
 
     /**
@@ -53,7 +59,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::with('shifts')->findOrFail($id);
 
         return response()->json($employee);
     }
@@ -66,7 +72,7 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::with('shifts')->findOrFail($id);
 
         return view('modals.editEmployee')->with(['employee' => $employee]);
     }
@@ -81,11 +87,31 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $employee = Employee::findOrFail($id);
+        $validationRules = ['name' => 'required|min:5'];
 
-        $request->validate(['name' => 'required|min:5']);
+        $newShifts = [];
+
+        $data = $request->all();
+        for($i = 0; $i <= 6; ++$i){
+            if(array_key_exists('enable'.$i, $data)){
+                $validationRules['entrada'.$i] = 'required|regex:/^\d{2}:\d{2}$/';
+                $validationRules['saida'.$i] = 'required|regex:/^\d{2}:\d{2}$/';
+
+                $newShifts[] = new Shift([
+                    'employee_id' => $employee->id,
+                    'day_of_week' => $i,
+                    'start_time' => parseTimeStringToMinutes($data['entrada'.$i]),
+                    'end_time' => parseTimeStringToMinutes($data['saida'.$i])
+                ]);
+            }
+        }
+
+        $request->validate($validationRules);
 
         $employee['name'] = $request->input('name');
 
+        $employee->shifts()->delete();
+        $employee->shifts()->saveMany($newShifts);
         $employee->save();
 
         return response()->json(['success' => true]);
@@ -100,6 +126,7 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);
+        $employee->shifts()->delete();
         $employee->delete();
         return response()->json(["success" => true]);
     }

@@ -30,20 +30,13 @@
                         <th scope="row">{{$employee->id}}</th>
                         <td>{{$employee->name}}</td>
                         <td>
-                        <span class="badge badge-success" data-placement="auto" data-toggle="tooltip"
-                              title="Domingo: Sim">D</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Segunda Feira: Não">S</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Terça-Feira: Não">T</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Quarta-Feira: Não">Q</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Quinta-Feira: Não">Q</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Sexta-Feira: Não">S</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Sabádo: Não">S</span>
+                            @component('components.employeeWorkDaysBadge', ['dayOfWeek' => 0, 'employee' => $employee])@endcomponent
+                            @component('components.employeeWorkDaysBadge', ['dayOfWeek' => 1, 'employee' => $employee])@endcomponent
+                            @component('components.employeeWorkDaysBadge', ['dayOfWeek' => 2, 'employee' => $employee])@endcomponent
+                            @component('components.employeeWorkDaysBadge', ['dayOfWeek' => 3, 'employee' => $employee])@endcomponent
+                            @component('components.employeeWorkDaysBadge', ['dayOfWeek' => 4, 'employee' => $employee])@endcomponent
+                            @component('components.employeeWorkDaysBadge', ['dayOfWeek' => 5, 'employee' => $employee])@endcomponent
+                            @component('components.employeeWorkDaysBadge', ['dayOfWeek' => 6, 'employee' => $employee])@endcomponent
                         </td>
                         <td>
                             <button class="btn btn-info" data-placement="top" data-toggle="tooltip"
@@ -55,7 +48,8 @@
                                     title="Editar" type="button"><i class="fas fa-user-edit"></i><span class="sr-only">Editar</span>
                             </button>
                             <button class="btn btn-danger" data-placement="top" data-toggle="tooltip" title="Excluir"
-                                    type="button" onclick="confirmDeletion({{$employee->id}})"><i class="fas fa-trash-alt"></i><span
+                                    type="button" onclick="confirmDeletion({{$employee->id}})"><i
+                                    class="fas fa-trash-alt"></i><span
                                     class="sr-only">Excluir</span></button>
                         </td>
                     </tr>
@@ -70,7 +64,8 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Funcionário #<span class="employee-number">1</span>: <span class="employee-name">João Víctor</span></h5>
+                    <h5 class="modal-title">Funcionário #<span class="employee-number">1</span>: <span
+                            class="employee-name">João Víctor</span></h5>
                     <button aria-label="Fechar" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -91,7 +86,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr id="showEmployeeModal-startTime">
                                 <th scope="row">Entrada</th>
                                 <td>07:00</td>
                                 <td>07:00</td>
@@ -101,7 +96,7 @@
                                 <td>07:00</td>
                                 <td>07:00</td>
                             </tr>
-                            <tr>
+                            <tr id="showEmployeeModal-endTime">
                                 <th scope="row">Saída</th>
                                 <td>12:00</td>
                                 <td>12:00</td>
@@ -120,7 +115,8 @@
                             type="button">
                         Editar
                     </button>
-                    <button class="btn btn-danger" data-dismiss="modal" type="button" onclick="confirmDeletion($('#showEmployeeId').val())">
+                    <button class="btn btn-danger" data-dismiss="modal" type="button"
+                            onclick="confirmDeletion($('#showEmployeeId').val())">
                         Apagar
                     </button>
                     <button class="btn btn-secondary" data-dismiss="modal" type="button">Fechar</button>
