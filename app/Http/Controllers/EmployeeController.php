@@ -41,12 +41,16 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|min:5']);
-        //
+        $validationRules = ['name' => 'required|min:5'];
+
         $employee = new Employee([
             'name' => $request->input('name')
         ]);
+
+        $newShifts = $this->generateShifts($request, $validationRules, $employee);
+
         $employee->save();
+        $employee->shifts()->saveMany($newShifts);
 
         return response()->json(['success' => true]);
     }
@@ -89,24 +93,7 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
         $validationRules = ['name' => 'required|min:5'];
 
-        $newShifts = [];
-
-        $data = $request->all();
-        for($i = 0; $i <= 6; ++$i){
-            if(array_key_exists('enable'.$i, $data)){
-                $validationRules['entrada'.$i] = 'required|regex:/^\d{2}:\d{2}$/';
-                $validationRules['saida'.$i] = 'required|regex:/^\d{2}:\d{2}$/';
-
-                $newShifts[] = new Shift([
-                    'employee_id' => $employee->id,
-                    'day_of_week' => $i,
-                    'start_time' => parseTimeStringToMinutes($data['entrada'.$i]),
-                    'end_time' => parseTimeStringToMinutes($data['saida'.$i])
-                ]);
-            }
-        }
-
-        $request->validate($validationRules);
+        $newShifts = $this->generateShifts($request, $validationRules, $employee);
 
         $employee['name'] = $request->input('name');
 
@@ -129,5 +116,34 @@ class EmployeeController extends Controller
         $employee->shifts()->delete();
         $employee->delete();
         return response()->json(["success" => true]);
+    }
+
+    /**
+     * @param Request $request
+     * @param array $validationRules
+     * @param $employee
+     * @return array
+     */
+    private function generateShifts(Request $request, array $validationRules, $employee): array
+    {
+        $newShifts = [];
+
+        $data = $request->all();
+        for ($i = 0; $i <= 6; ++$i) {
+            if (array_key_exists('enable' . $i, $data)) {
+                $validationRules['entrada' . $i] = 'required|regex:/^\d{2}:\d{2}$/';
+                $validationRules['saida' . $i] = 'required|regex:/^\d{2}:\d{2}$/';
+
+                $newShifts[] = new Shift([
+                    'employee_id' => $employee->id,
+                    'day_of_week' => $i,
+                    'start_time' => parseTimeStringToMinutes($data['entrada' . $i]),
+                    'end_time' => parseTimeStringToMinutes($data['saida' . $i])
+                ]);
+            }
+        }
+
+        $request->validate($validationRules);
+        return $newShifts;
     }
 }

@@ -5,6 +5,7 @@ function days(){
 }
 
 function employeeWorksOnDay($employee, $dayOfWeek){
+    if($employee == null) return false;
     return in_array($dayOfWeek, $employee->works_on_days_of_week);
 }
 
@@ -14,12 +15,14 @@ function employeeBadger($employee, $dayOfWeek){
 
 function parseMinutesToTimeString($minutes){
     $hours = floor($minutes / 60);
-    $minutes = $minutes % 60;
+    $min= $minutes % 60;
 
-    return str_pad($hours, 2, '0', STR_PAD_LEFT).':'.str_pad($minutes, 2, '0', STR_PAD_LEFT);
+    return str_pad($hours, 2, '0', STR_PAD_LEFT).':'.str_pad($min, 2, '0', STR_PAD_LEFT);
 }
 
 function employeeGetShiftForDay($employee, $dayOfWeek){
+    if($employee == null) return 0;
+
     return $employee->shifts->filter(function ($val) use ($dayOfWeek){
         return $val->day_of_week == $dayOfWeek;
     })->first();
@@ -38,10 +41,10 @@ function employeeGetEndTime($employee, $dayOfWeek){
 function parseTimeStringToMinutes($timeStr){
     preg_match('/^(\d{2}):(\d{2})$/', $timeStr, $groups);
 
-    $hours = intval($groups[0]);
-    $minutes = intval($groups[1]);
+    $hours = intval(ltrim($groups[1], '0'));
+    $minutes = intval(ltrim($groups[2], '0'));
 
-    $minutes += $hours * 59;
+    $minutes += $hours * 60;
 
     return $minutes;
 }

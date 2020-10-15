@@ -16819,6 +16819,18 @@ $(function () {
     ev.preventDefault();
     saveEmployee(null, $("#newEmployeeForm").serializeArray());
   });
+  $('#newEmployeeForm input[type=checkbox][name^=enable]').on('click', function (ev) {
+    var $enable = $(ev.target);
+    var dayOfWeek = $(ev.target).data('dayOfWeek');
+
+    if ($enable.is(":checked")) {
+      $("#newEmployeeForm input[name=entrada".concat(dayOfWeek, "]")).attr('disabled', null);
+      $("#newEmployeeForm input[name=saida".concat(dayOfWeek, "]")).attr('disabled', null);
+    } else {
+      $("#newEmployeeForm input[name=entrada".concat(dayOfWeek, "]")).val('').attr('disabled', true);
+      $("#newEmployeeForm input[name=saida".concat(dayOfWeek, "]")).val('').attr('disabled', true);
+    }
+  });
 });
 
 function confirmDeletion(id) {

@@ -4,7 +4,7 @@
             <div class="form-check toogle-day-of-the-week">
                 <label>
                     <input class="form-check-input" data-day-of-week="{{$dayOfWeek}}" name="enable{{$dayOfWeek}}" type="checkbox"
-                           {{ employeeWorksOnDay($employee, $dayOfWeek) ? 'checked' : '' }} value="true">
+                           {{  employeeWorksOnDay($employee, $dayOfWeek) ? 'checked' : '' }} value="true">
                     <span class="font-weight-bold">{{ days()[$dayOfWeek] }}</span>
                 </label>
             </div>

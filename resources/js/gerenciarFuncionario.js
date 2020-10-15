@@ -9,6 +9,19 @@ $(function () {
         ev.preventDefault();
         saveEmployee(null, $("#newEmployeeForm").serializeArray());
     });
+
+    $('#newEmployeeForm input[type=checkbox][name^=enable]').on('click', (ev) => {
+        const $enable = $(ev.target);
+        const dayOfWeek = $(ev.target).data('dayOfWeek');
+
+        if($enable.is(":checked")){
+            $(`#newEmployeeForm input[name=entrada${dayOfWeek}]`).attr('disabled', null);
+            $(`#newEmployeeForm input[name=saida${dayOfWeek}]`).attr('disabled', null);
+        }else{
+            $(`#newEmployeeForm input[name=entrada${dayOfWeek}]`).val('').attr('disabled', true);
+            $(`#newEmployeeForm input[name=saida${dayOfWeek}]`).val('').attr('disabled', true);
+        }
+    });
 });
 
 function confirmDeletion(id) {

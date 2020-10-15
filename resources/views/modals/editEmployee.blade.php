@@ -46,16 +46,16 @@
         saveEmployee($("#editEmployeeId").val(), $("#editEmployeeForm").serializeArray());
     });
 
-    $('input[type=checkbox][name^=enable]').on('click', (ev) => {
+    $('#editEmployeeForm input[type=checkbox][name^=enable]').on('click', (ev) => {
         const $enable = $(ev.target);
         const dayOfWeek = $(ev.target).data('dayOfWeek');
 
         if($enable.is(":checked")){
-            $(`input[name=entrada${dayOfWeek}]`).attr('disabled', null);
-            $(`input[name=saida${dayOfWeek}]`).attr('disabled', null);
+            $(`#editEmployeeForm input[name=entrada${dayOfWeek}]`).attr('disabled', null);
+            $(`#editEmployeeForm input[name=saida${dayOfWeek}]`).attr('disabled', null);
         }else{
-            $(`input[name=entrada${dayOfWeek}]`).val('').attr('disabled', true);
-            $(`input[name=saida${dayOfWeek}]`).val('').attr('disabled', true);
+            $(`#editEmployeeForm input[name=entrada${dayOfWeek}]`).val('').attr('disabled', true);
+            $(`#editEmployeeForm input[name=saida${dayOfWeek}]`).val('').attr('disabled', true);
         }
     });
 </script>
