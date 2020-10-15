@@ -24,36 +24,14 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @for($i = 0; $i < $maxShifts; ++$i)
                     <tr>
-                        <th scope="row">1º</th>
-                        <td>07:00 ~ 12:00</td>
-                        <td>07:00 ~ 12:00</td>
-                        <td>07:00 ~ 12:00</td>
-                        <td>07:00 ~ 12:00</td>
-                        <td>07:00 ~ 12:00</td>
-                        <td>07:00 ~ 12:00</td>
-                        <td>07:00 ~ 12:00</td>
+                        <th scope="row">{{$i + 1}}º</th>
+                        @for($day = 0; $day <= 6; ++$day)
+                        <td>{{ sizeof($dayOfWeekShifts[$day]) > $i ? parseMinutesToTimeString($dayOfWeekShifts[$day][$i]['start']).' ~ '.parseMinutesToTimeString($dayOfWeekShifts[$day][$i]['end']) : '-' }}</td>
+                        @endfor
                     </tr>
-                    <tr>
-                        <th scope="row">2º</th>
-                        <td>-</td>
-                        <td>13:00 ~ 17:00</td>
-                        <td>13:00 ~ 17:00</td>
-                        <td>13:00 ~ 17:00</td>
-                        <td>-</td>
-                        <td>13:00 ~ 17:00</td>
-                        <td>13:00 ~ 17:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3º</th>
-                        <td>-</td>
-                        <td>18:00 ~ 21:00</td>
-                        <td>18:00 ~ 21:00</td>
-                        <td>18:00 ~ 21:00</td>
-                        <td>18:00 ~ 21:00</td>
-                        <td>18:00 ~ 21:00</td>
-                        <td>-</td>
-                    </tr>
+                    @endfor
                     </tbody>
                 </table>
             </div>
