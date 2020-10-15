@@ -125,9 +125,6 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/gerenciarFuncionario.js') }}"></script>
     @include('modals.newEmployee')
 @endsection
-
-@push('js')
-    <script src="{{ asset('js/gerenciarFuncionario.js') }}"></script>
-@endpush

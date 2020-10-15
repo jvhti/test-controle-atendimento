@@ -43,8 +43,5 @@
                 </div>
             </div>
         </div>
+        <script src="{{ asset('js/simular.js') }}"></script>
 @endsection
-
-@push('js')
-    <script src="{{ asset('js/simular.js') }}"></script>
-@endpush
