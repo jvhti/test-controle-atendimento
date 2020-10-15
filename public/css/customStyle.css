@@ -1,0 +1,46 @@
+.navbar-brand > img {
+    filter: invert(100%);
+    transform: scale(1);
+    transition: all 300ms ease-in-out;
+}
+
+.navbar-brand:hover > img,
+.navbar-brand:active > img {
+    filter: invert(80%);
+    transform: scale(1.04);
+}
+
+@media screen and (max-width: 400px) {
+    .navbar-brand > img {
+        height: 26px;
+    }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+
+.navbar-dark .navbar-nav .nav-item.active .nav-link {
+    position: relative;
+}
+
+.navbar-dark .navbar-nav .nav-item.active .nav-link:after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    right: 7px;
+    height: 1px;
+    background-color: white;
+    bottom: 7px;
+}
+
+.toogle-day-of-the-week{
+    margin: 27px 0 ;
+}
+
+@media screen and (max-width: 991px) {
+    .toogle-day-of-the-week{
+        margin: 20px 0 0 0;
+    }
+}
