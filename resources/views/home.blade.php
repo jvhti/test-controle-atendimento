@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 
 @section('content')
-    <main>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4">Horário de Expediente</h1>
@@ -59,5 +58,4 @@
                 </table>
             </div>
         </div>
-    </main>
 @endsection

@@ -2,66 +2,66 @@
 
 @section('content')
 
-    <main>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4">Gerenciar Funcionarios</h1>
-            </div>
-        </div>
-
+    <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <div class="text-right">
-                <button class="btn btn-success" onclick="$('#editEmployee').modal()"><i class="fas fa-plus"></i> Novo</button>
-            </div>
-            <br>
-            <div class="table-responsive">
-                <table class="table text-center">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Nº</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Dias da Semana</th>
-                        <th scope="col">Opções</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>João Víctor</td>
-                        <td>
+            <h1 class="display-4">Gerenciar Funcionarios</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="text-right">
+            <button class="btn btn-success" onclick="$('#editEmployee').modal()"><i class="fas fa-plus"></i> Novo
+            </button>
+        </div>
+        <br>
+        <div class="table-responsive">
+            <table class="table text-center">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nº</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Dias da Semana</th>
+                    <th scope="col">Opções</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>João Víctor</td>
+                    <td>
                         <span class="badge badge-success" data-placement="auto" data-toggle="tooltip"
                               title="Domingo: Sim">D</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Segunda Feira: Não">S</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Terça-Feira: Não">T</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Quarta-Feira: Não">Q</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Quinta-Feira: Não">Q</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Sexta-Feira: Não">S</span>
-                            <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
-                                  title="Sabádo: Não">S</span>
-                        </td>
-                        <td>
-                            <button class="btn btn-info" data-placement="top" data-toggle="tooltip"
-                                    onclick="$('#showEmployeeModal').modal()"
-                                    title="Detalhes" type="button"><i class="fas fa-search"></i><span class="sr-only">Detalhes</span>
-                            </button>
-                            <button class="btn btn-warning" data-placement="top" data-toggle="tooltip"
-                                    onclick="$('#editEmployee').modal()"
-                                    title="Editar" type="button"><i class="fas fa-user-edit"></i><span class="sr-only">Editar</span>
-                            </button>
-                            <button class="btn btn-danger" data-placement="top" data-toggle="tooltip" title="Excluir"
-                                    type="button" onclick="confirmDeletion()"><i class="fas fa-trash-alt"></i><span class="sr-only">Excluir</span></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
+                              title="Segunda Feira: Não">S</span>
+                        <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
+                              title="Terça-Feira: Não">T</span>
+                        <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
+                              title="Quarta-Feira: Não">Q</span>
+                        <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
+                              title="Quinta-Feira: Não">Q</span>
+                        <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
+                              title="Sexta-Feira: Não">S</span>
+                        <span class="badge badge-danger" data-placement="auto" data-toggle="tooltip"
+                              title="Sabádo: Não">S</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" data-placement="top" data-toggle="tooltip"
+                                onclick="$('#showEmployeeModal').modal()"
+                                title="Detalhes" type="button"><i class="fas fa-search"></i><span class="sr-only">Detalhes</span>
+                        </button>
+                        <button class="btn btn-warning" data-placement="top" data-toggle="tooltip"
+                                onclick="$('#editEmployee').modal()"
+                                title="Editar" type="button"><i class="fas fa-user-edit"></i><span class="sr-only">Editar</span>
+                        </button>
+                        <button class="btn btn-danger" data-placement="top" data-toggle="tooltip" title="Excluir"
+                                type="button" onclick="confirmDeletion()"><i class="fas fa-trash-alt"></i><span
+                                class="sr-only">Excluir</span></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </main>
+    </div>
 
     <div class="modal" id="showEmployeeModal" tabindex="-1">
         <div class="modal-dialog modal-xl">
@@ -113,10 +113,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-warning" data-dismiss="modal" onclick="$('#editEmployee').modal()" type="button">
+                    <button class="btn btn-warning" data-dismiss="modal" onclick="$('#editEmployee').modal()"
+                            type="button">
                         Editar
                     </button>
-                    <button class="btn btn-danger" data-dismiss="modal" type="button" onclick="confirmDeletion()">Apagar</button>
+                    <button class="btn btn-danger" data-dismiss="modal" type="button" onclick="confirmDeletion()">
+                        Apagar
+                    </button>
                     <button class="btn btn-secondary" data-dismiss="modal" type="button">Fechar</button>
                 </div>
             </div>
@@ -153,13 +156,15 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="entrada0">Entrada:</label>
-                                            <input class="form-control text-right" id="entrada0" type="text" value="07:00">
+                                            <input class="form-control text-right" id="entrada0" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="saida0">Saída:</label>
-                                            <input class="form-control text-right" id="saida0" type="text" value="07:00">
+                                            <input class="form-control text-right" id="saida0" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                 </div>
@@ -177,13 +182,15 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="entrada1">Entrada:</label>
-                                            <input class="form-control text-right" id="entrada1" type="text" value="07:00">
+                                            <input class="form-control text-right" id="entrada1" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="saida1">Saída:</label>
-                                            <input class="form-control text-right" id="saida1" type="text" value="07:00">
+                                            <input class="form-control text-right" id="saida1" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                 </div>
@@ -203,13 +210,15 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="entrada2">Entrada:</label>
-                                            <input class="form-control text-right" id="entrada2" type="text" value="07:00">
+                                            <input class="form-control text-right" id="entrada2" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="saida2">Saída:</label>
-                                            <input class="form-control text-right" id="saida2" type="text" value="07:00">
+                                            <input class="form-control text-right" id="saida2" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                 </div>
@@ -227,13 +236,15 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="entrada3">Entrada:</label>
-                                            <input class="form-control text-right" id="entrada3" type="text" value="07:00">
+                                            <input class="form-control text-right" id="entrada3" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="saida3">Saída:</label>
-                                            <input class="form-control text-right" id="saida3" type="text" value="07:00">
+                                            <input class="form-control text-right" id="saida3" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                 </div>
@@ -253,13 +264,15 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="entrada4">Entrada:</label>
-                                            <input disabled class="form-control text-right" id="entrada4" type="text" value="07:00">
+                                            <input disabled class="form-control text-right" id="entrada4" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="saida4">Saída:</label>
-                                            <input disabled class="form-control text-right" id="saida4" type="text" value="07:00">
+                                            <input disabled class="form-control text-right" id="saida4" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                 </div>
@@ -277,13 +290,15 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="entrada5">Entrada:</label>
-                                            <input class="form-control text-right" id="entrada5" type="text" value="07:00">
+                                            <input class="form-control text-right" id="entrada5" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="saida5">Saída:</label>
-                                            <input class="form-control text-right" id="saida5" type="text" value="07:00">
+                                            <input class="form-control text-right" id="saida5" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                 </div>
@@ -303,13 +318,15 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="entrada6">Entrada:</label>
-                                            <input class="form-control text-right" id="entrada6" type="text" value="07:00">
+                                            <input class="form-control text-right" id="entrada6" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="saida6">Saída:</label>
-                                            <input class="form-control text-right" id="saida6" type="text" value="07:00">
+                                            <input class="form-control text-right" id="saida6" type="text"
+                                                   value="07:00">
                                         </div>
                                     </div>
                                 </div>

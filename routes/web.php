@@ -14,13 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if(request()->ajax())
+        return view('home')->renderSections()['content'];
     return view('home');
 });
 
 Route::get('/gerenciarFuncionario', function () {
+    if(request()->ajax())
+        return view('gerenciarFuncionario')->renderSections()['content'];
+
     return view('gerenciarFuncionario');
 })->name('gerenciarFuncionario');
 
 Route::get('/simular', function () {
+    if(request()->ajax())
+        return view('simular')->renderSections()['content'];
     return view('simular');
 })->name('simular');

@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
 @section('content')
-
-    <main>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4">Simular Cliente</h1>
@@ -45,7 +43,6 @@
                 </div>
             </div>
         </div>
-    </main>
 @endsection
 
 @push('js')

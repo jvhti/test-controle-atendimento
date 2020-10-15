@@ -18088,11 +18088,44 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {__webpack_provided_window_dot_jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery, $) {__webpack_provided_window_dot_jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 window.$ = __webpack_provided_window_dot_jQuery;
 
 __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+$(function () {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  function updateActiveMenu(url) {
+    $('.nav-item').removeClass('active');
+    $(".nav-item span.sr-only").remove();
+    $("a.nav-link[href=\"".concat(url, "\"]")).parent('.nav-item').addClass('active').append($('<span class="sr-only"> (atual)</span>'));
+  }
+
+  $('a.nav-link').on('click', function (ev) {
+    ev.preventDefault();
+    var $el = $(ev.target);
+    $.get($el.attr('href'), function (page) {
+      $('#content').html(page);
+      window.history.pushState({
+        "html": page
+      }, "", $el.attr('href'));
+      updateActiveMenu($el.attr('href'));
+    });
+  });
+
+  window.onpopstate = function (e) {
+    if (e.state) {
+      $("#content").html(e.state.html);
+      updateActiveMenu(window.location.href);
+    }
+  };
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
