@@ -20,7 +20,7 @@ window.hideLoadingIndicator = function(){
 
 $(function() {
     $.ajaxSetup({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), 'Access-Control-Allow-Origin': '*'},
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'), 'X-REQUESTED-WITH': 'XMLHttpRequest'},
     });
 
     function updateActiveMenu(url){
