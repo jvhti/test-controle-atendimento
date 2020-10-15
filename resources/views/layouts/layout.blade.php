@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -9,7 +9,7 @@
     <link href="{{ asset('css/customStyle.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/d1c9253bbc.js" crossorigin="anonymous"></script>
 
-    <title>Title</title>
+    <title>Loja Virtual - Controle de Atendimento</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
