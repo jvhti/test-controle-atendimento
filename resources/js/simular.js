@@ -87,6 +87,7 @@ var config = {
 
     $("#simulador").on('submit', (ev) => {
         ev.preventDefault();
+        showLoadingIndicator();
         $.ajax('/api/simulate?'+ $("#simulador").serialize()).done((res) =>{
             $("#tempoExpediente").text("aprox. " + moment.duration(res.timeInShift, 'minutes').humanize() + ` (${moment.duration(res.timeInShift, 'minutes').asHours().toFixed(4)} horas)`);
             $("#tempoForaExpediente").text("aprox. " + moment.duration(res.timeOutOfShift, 'minutes').humanize() + ` (${moment.duration(res.timeOutOfShift, 'minutes').asHours().toFixed(4)} horas)`);
@@ -94,6 +95,7 @@ var config = {
 
             window.myDoughnut.data.datasets[0].data = [res.timeInShift, res.timeOutOfShift];
             window.myDoughnut.update();
+            hideLoadingIndicator();
         });
     });
 })();
