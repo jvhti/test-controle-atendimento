@@ -44,3 +44,15 @@
         margin: 20px 0 0 0;
     }
 }
+
+#loadingIndicator{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: #00000024;
+    display: flex;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}

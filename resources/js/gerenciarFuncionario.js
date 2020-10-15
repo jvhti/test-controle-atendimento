@@ -39,7 +39,9 @@ function confirmDeletion(id) {
         },
         callback: function (result) {
             if (result) {
+                showLoadingIndicator();
                 $.ajax('api/employee/' + id, {method: 'DELETE'}).done((res) => {
+                    hideLoadingIndicator();
                     if (res.success)
                         setTimeout(() => navigateTo(window.location.href), 400);
                 });
@@ -49,8 +51,9 @@ function confirmDeletion(id) {
 }
 
 function showEmployee(id) {
+    showLoadingIndicator();
     $.ajax('api/employee/' + id).done((res) => {
-        console.log(res);
+        hideLoadingIndicator();
         $("#showEmployeeModal").find('.employee-name').html(res.name);
         $("#showEmployeeModal").find('.employee-number').html(res.id);
         $("#showEmployeeId").val(res.id);
@@ -84,6 +87,7 @@ function showEmployee(id) {
 }
 
 function editEmployee(id) {
+    showLoadingIndicator();
     $.ajax('employee/' + id + '/edit').done((res) => {
         if ($('#editEmployee').length)
             $('#editEmployee').remove();
@@ -91,6 +95,7 @@ function editEmployee(id) {
         $('body').append($(res));
 
         setTimeout(() => {
+            hideLoadingIndicator();
             $('#editEmployee').modal();
         }, 100);
     });
@@ -99,6 +104,8 @@ function editEmployee(id) {
 function saveEmployee(id, data) {
     const parsedData = {};
     const $form = $(`#${id ? 'edit' : 'new'}EmployeeForm`);
+
+    $form.find('button[type=submit]').attr('disabled', true).html("<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> Carregando...");
 
     for (const i in data)
         parsedData[data[i].name] = data[i].value;
@@ -120,6 +127,8 @@ function saveEmployee(id, data) {
 
                     if (id)
                         $modal.remove();
+                    else
+                        $form.find('button[type=submit]').attr("disabled", null).html("Salvar");
 
                 }, 400);
         },
@@ -131,6 +140,7 @@ function saveEmployee(id, data) {
                 $input.removeClass('is-valid').addClass('is-invalid');
                 $input.parent().append($(`<div class="invalid-feedback">${errors[field][0]}</div>`));
             }
+            $form.find('button[type=submit]').attr("disabled", null).html("Salvar");
         }
     });
 }
