@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-warning" data-dismiss="modal" onclick="$('#editEmployee').modal()"
+                    <button class="btn btn-warning" data-dismiss="modal" onclick="editEmployee($('#showEmployeeId').val())"
                             type="button">
                         Editar
                     </button>
