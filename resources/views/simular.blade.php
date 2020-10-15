@@ -9,18 +9,18 @@
         </div>
 
         <div class="container">
-            <form>
+            <form id="simulador">
                 <div class="row">
                     <div class="col-lg-6">
                         <div id="dataEntradaGroup" class="form-group date" data-target-input="nearest">
                             <label for="dataEntrada">Entrada: </label>
-                            <input type="text" class="form-control datetimepicker-input" data-target="#dataEntradaGroup" data-toggle="datetimepicker" id="dataEntrada" value="12/12/2020 12:12">
+                            <input name="start" type="text" class="form-control datetimepicker-input" data-target="#dataEntradaGroup" data-toggle="datetimepicker" id="dataEntrada" value="12/12/2020 12:12">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div id="dataSaidaGroup" class="form-group date" data-target-input="nearest">
                             <label for="dataSaida">Saída: </label>
-                            <input type="text" class="form-control datetimepicker-input" data-target="#dataSaidaGroup" data-toggle="datetimepicker" id="dataSaida" value="02/01/2021 03:15">
+                            <input name="end" type="text" class="form-control datetimepicker-input" data-target="#dataSaidaGroup" data-toggle="datetimepicker" id="dataSaida" value="02/01/2021 03:15">
                         </div>
                     </div>
                 </div>
@@ -37,9 +37,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <h5>Dentro do Expediente: 2h</h5>
-                    <h5>Fora do Expediente: 5h 50m</h5>
-                    <h5>Tempo Total: 7h 50m</h5>
+                    <h5>Dentro do Expediente: <span id="tempoExpediente"></span></h5>
+                    <h5>Fora do Expediente: <span id="tempoForaExpediente"></span></h5>
+                    <h5>Tempo Total: <span id="tempoTotal"></span></h5>
                 </div>
             </div>
         </div>

@@ -9,10 +9,7 @@ var config = {
     type: 'doughnut',
     data: {
         datasets: [{
-            data: [
-                120,
-                350
-            ],
+            data: [],
             backgroundColor: [
                 'rgb(0,255,0)',
                 'rgb(255,0,0)'
@@ -62,9 +59,7 @@ var config = {
 (function() {
     var ctx = document.getElementById('time-expediente').getContext('2d');
     window.myDoughnut = new Chart(ctx, config);
-})();
 
-$(function () {
     $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
         icons: {
             time: 'fas fa-clock',
@@ -88,4 +83,17 @@ $(function () {
     $("#dataSaidaGroup").on("change.datetimepicker", function (e) {
         $('#dataEntradaGroup').datetimepicker('maxDate', e.date);
     });
-});
+
+
+    $("#simulador").on('submit', (ev) => {
+        ev.preventDefault();
+        $.ajax('/api/simulate?'+ $("#simulador").serialize()).done((res) =>{
+            $("#tempoExpediente").text("aprox. " + moment.duration(res.timeInShift, 'minutes').humanize() + ` (${moment.duration(res.timeInShift, 'minutes').asHours().toFixed(4)} horas)`);
+            $("#tempoForaExpediente").text("aprox. " + moment.duration(res.timeOutOfShift, 'minutes').humanize() + ` (${moment.duration(res.timeOutOfShift, 'minutes').asHours().toFixed(4)} horas)`);
+            $("#tempoTotal").text("aprox. " + moment.duration(res.totalTime, 'minutes').humanize() + ` (${moment.duration(res.totalTime, 'minutes').asHours().toFixed(4)} horas)`);
+
+            window.myDoughnut.data.datasets[0].data = [res.timeInShift, res.timeOutOfShift];
+            window.myDoughnut.update();
+        });
+    });
+})();
