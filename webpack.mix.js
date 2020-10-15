@@ -19,3 +19,8 @@ mix.autoload({
     .js('resources/js/simular.js', 'public/js')
     .postCss('resources/css/customStyle.css', 'public/css', [])
     .postCss('resources/css/bootstrap.css', 'public/css', []);
+
+
+if (mix.inProduction()) {
+    mix.version();
+}

@@ -1,7 +1,7 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/customStyle.css": "/css/customStyle.css",
-    "/css/bootstrap.css": "/css/bootstrap.css",
-    "/js/gerenciarFuncionario.js": "/js/gerenciarFuncionario.js",
-    "/js/simular.js": "/js/simular.js"
+    "/js/app.js": "/js/app.js?id=30899faa3a09a3853ccd",
+    "/css/customStyle.css": "/css/customStyle.css?id=ff387c91c0bee007acf8",
+    "/css/bootstrap.css": "/css/bootstrap.css?id=80b6b9517a48717b4db3",
+    "/js/gerenciarFuncionario.js": "/js/gerenciarFuncionario.js?id=2c2550810d789d0b53e8",
+    "/js/simular.js": "/js/simular.js?id=76f90cb9ef33b147457a"
 }
