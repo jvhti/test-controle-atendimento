@@ -13,15 +13,19 @@ $(function() {
         $(`a.nav-link[href="${url}"]`).parent('.nav-item').addClass('active').append($('<span class="sr-only"> (atual)</span>'));
     }
 
+    function navigateTo(url){
+        $.get(url, (page) => {
+            $('#content').html(page);
+            window.history.pushState({"html": page}, "", url);
+            updateActiveMenu(url);
+        });
+    }
+
     $('a.nav-link').on('click', (ev) => {
         ev.preventDefault();
         const $el = $(ev.target);
 
-        $.get($el.attr('href'), (page) => {
-            $('#content').html(page);
-            window.history.pushState({"html": page}, "", $el.attr('href'));
-            updateActiveMenu($el.attr('href'));
-        });
+        navigateTo($el.attr('href'));
     });
 
     window.onpopstate = function(e){
@@ -30,4 +34,6 @@ $(function() {
             updateActiveMenu(window.location.href);
         }
     };
+
+    window.navigateTo = navigateTo;
 });

@@ -16815,11 +16815,15 @@ __webpack_require__(/*! bootstrap/js/dist/modal */ "./node_modules/bootstrap/js/
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
+  $('#newEmployeeForm').on('submit', function (ev) {
+    ev.preventDefault();
+    saveEmployee(null, $("#newEmployeeForm").serializeArray());
+  });
 });
 
-function confirmDeletion() {
+function confirmDeletion(id) {
   bootbox.confirm({
-    message: "Você realmente deseja excluir o funcionário #1?",
+    message: "Voc\xEA realmente deseja excluir o funcion\xE1rio #".concat(id, "?"),
     buttons: {
       cancel: {
         label: 'Cancelar',
@@ -16832,13 +16836,76 @@ function confirmDeletion() {
     },
     callback: function callback(result) {
       if (result) {
-        console.log("Delete employee");
+        $.ajax('api/employee/' + id, {
+          method: 'DELETE'
+        }).done(function (res) {
+          if (res.success) setTimeout(function () {
+            return navigateTo(window.location.href);
+          }, 400);
+        });
+      }
+    }
+  });
+}
+
+function showEmployee(id) {
+  $.ajax('api/employee/' + id).done(function (res) {
+    console.log(res);
+    $("#showEmployeeModal").find('.employee-name').html(res.name);
+    $("#showEmployeeModal").find('.employee-number').html(res.id);
+    $("#showEmployeeId").val(res.id);
+    $("#showEmployeeModal").modal();
+  });
+}
+
+function editEmployee(id) {
+  $.ajax('employee/' + id + '/edit').done(function (res) {
+    if ($('#editEmployee').length) $('#editEmployee').remove();
+    $('body').append($(res));
+    setTimeout(function () {
+      $('#editEmployee').modal();
+    }, 100);
+  });
+}
+
+function saveEmployee(id, data) {
+  var parsedData = {};
+  var $form = $("#".concat(id ? 'edit' : 'new', "EmployeeForm"));
+
+  for (var i in data) {
+    parsedData[data[i].name] = data[i].value;
+  }
+
+  $form.find('.is-invalid').removeClass('is-invalid');
+  $form.find('.invalid-feedback').remove();
+  $.ajax('api/employee' + (id ? '/' + id : ''), {
+    method: id ? 'PUT' : 'POST',
+    data: parsedData,
+    success: function success(res) {
+      if (res.success) setTimeout(function () {
+        navigateTo(window.location.href);
+        var $modal = $("#".concat(id ? 'edit' : 'new', "Employee")).modal("hide");
+        $(".modal-backdrop.show").remove();
+        $("body").removeClass('modal-open');
+        if (id) $modal.remove();
+      }, 400);
+    },
+    error: function error(req, status, _error) {
+      var errors = req.responseJSON.errors;
+
+      for (var field in errors) {
+        var $input = $form.find("[name=\"".concat(field, "\"]"));
+        $input.removeClass('is-valid').addClass('is-invalid');
+        $input.parent().append($("<div class=\"invalid-feedback\">".concat(errors[field][0], "</div>")));
       }
     }
   });
 }
 
 window.confirmDeletion = confirmDeletion;
+window.showEmployee = showEmployee;
+window.editEmployee = editEmployee;
+window.saveEmployee = saveEmployee;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

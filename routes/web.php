@@ -20,10 +20,12 @@ Route::get('/', function () {
 });
 
 Route::get('/gerenciarFuncionario', function () {
-    if(request()->ajax())
-        return view('gerenciarFuncionario')->renderSections()['content'];
+    $employees = \App\Models\Employee::all();
 
-    return view('gerenciarFuncionario');
+    if(request()->ajax())
+        return view('gerenciarFuncionario')->with(['employees' => $employees])->renderSections()['content'];
+
+    return view('gerenciarFuncionario')->with(['employees' => $employees]);
 })->name('gerenciarFuncionario');
 
 Route::get('/simular', function () {
@@ -31,3 +33,5 @@ Route::get('/simular', function () {
         return view('simular')->renderSections()['content'];
     return view('simular');
 })->name('simular');
+
+Route::get('/employee/{id}/edit', [\App\Http\Controllers\EmployeeController::class, 'edit']);

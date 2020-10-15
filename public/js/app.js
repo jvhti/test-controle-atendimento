@@ -18106,16 +18106,20 @@ $(function () {
     $("a.nav-link[href=\"".concat(url, "\"]")).parent('.nav-item').addClass('active').append($('<span class="sr-only"> (atual)</span>'));
   }
 
-  $('a.nav-link').on('click', function (ev) {
-    ev.preventDefault();
-    var $el = $(ev.target);
-    $.get($el.attr('href'), function (page) {
+  function navigateTo(url) {
+    $.get(url, function (page) {
       $('#content').html(page);
       window.history.pushState({
         "html": page
-      }, "", $el.attr('href'));
-      updateActiveMenu($el.attr('href'));
+      }, "", url);
+      updateActiveMenu(url);
     });
+  }
+
+  $('a.nav-link').on('click', function (ev) {
+    ev.preventDefault();
+    var $el = $(ev.target);
+    navigateTo($el.attr('href'));
   });
 
   window.onpopstate = function (e) {
@@ -18124,6 +18128,8 @@ $(function () {
       updateActiveMenu(window.location.href);
     }
   };
+
+  window.navigateTo = navigateTo;
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"), __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
