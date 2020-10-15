@@ -17,7 +17,7 @@ class EmployeeController extends Controller
     {
         $employees = \App\Models\Employee::with('shifts')->get();
 
-        if(request()->ajax())
+        if(request()->ajax() || \request()->query('ajax') == true)
             return view('gerenciarFuncionario')->with(['employees' => $employees])->renderSections()['content'];
 
         return view('gerenciarFuncionario')->with(['employees' => $employees]);

@@ -23,7 +23,7 @@ Route::get('/', function () {
         return sizeof($el);
     })->max();
 
-    if(request()->ajax())
+    if(request()->ajax() || \request()->query('ajax') == true)
         return view('home')->with(['dayOfWeekShifts' => $dayOfWeekShifts, 'maxShifts' => $maxShifts])->renderSections()['content'];
     return view('home')->with(['dayOfWeekShifts' => $dayOfWeekShifts, 'maxShifts' => $maxShifts]);
 });
@@ -31,7 +31,7 @@ Route::get('/', function () {
 Route::get('/gerenciarFuncionario', [\App\Http\Controllers\EmployeeController::class, 'index'])->name('gerenciarFuncionario');
 
 Route::get('/simular', function () {
-    if(request()->ajax())
+    if(request()->ajax() || \request()->query('ajax') == true)
         return view('simular')->renderSections()['content'];
     return view('simular');
 })->name('simular');

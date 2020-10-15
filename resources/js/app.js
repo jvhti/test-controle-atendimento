@@ -31,7 +31,7 @@ $(function() {
 
     function navigateTo(url){
         showLoadingIndicator();
-        $.get(url, (page) => {
+        $.get(url + '?ajax=true', (page) => {
             $('#content').html(page);
             window.history.pushState({"html": page}, "", url);
             updateActiveMenu(url);
