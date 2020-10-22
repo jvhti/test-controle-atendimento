@@ -89,9 +89,14 @@ var config = {
         ev.preventDefault();
         showLoadingIndicator();
         $.ajax('/api/simulate?'+ $("#simulador").serialize()).done((res) =>{
-            $("#tempoExpediente").text("aprox. " + moment.duration(res.timeInShift, 'minutes').humanize() + ` (${moment.duration(res.timeInShift, 'minutes').asHours().toFixed(4)} horas)`);
-            $("#tempoForaExpediente").text("aprox. " + moment.duration(res.timeOutOfShift, 'minutes').humanize() + ` (${moment.duration(res.timeOutOfShift, 'minutes').asHours().toFixed(4)} horas)`);
-            $("#tempoTotal").text("aprox. " + moment.duration(res.totalTime, 'minutes').humanize() + ` (${moment.duration(res.totalTime, 'minutes').asHours().toFixed(4)} horas)`);
+            const parseMinutesToTimeString = (minutes) => {
+                const hours = Math.floor(minutes / 60);
+                return hours.toString().padStart(2, '0') + ':' + (minutes % 60).toString().padStart(2, '0');
+            };
+
+            $("#tempoExpediente").text("aprox. " + moment.duration(res.timeInShift, 'minutes').humanize() + ` (${parseMinutesToTimeString(res.timeInShift)})`);
+            $("#tempoForaExpediente").text("aprox. " + moment.duration(res.timeOutOfShift, 'minutes').humanize() + ` (${parseMinutesToTimeString(res.timeOutOfShift)})`);
+            $("#tempoTotal").text("aprox. " + moment.duration(res.totalTime, 'minutes').humanize() + ` (${parseMinutesToTimeString(res.totalTime)})`);
 
             window.myDoughnut.data.datasets[0].data = [res.timeInShift, res.timeOutOfShift];
             window.myDoughnut.update();
